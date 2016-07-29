@@ -21,8 +21,12 @@ class DefaultController extends Controller
         $user = $this->get('mongo')->citates->user->findOne(['username' => $username]);
         $citateCount = $this->get('mongo')->citates->citate->count();
         if (!$user) {
+
             $skip = rand(0, $citateCount-1);
-            $citate = $this->get('mongo')->citates->citate->findOne([], ['skip'=>$skip])->getArrayCopy();
+            $citate = $this->get('mongo')->citates->citate->findOne([], ['skip'=>$skip]);
+            if ($citate) {
+                $citate->getArrayCopy();
+            }
             return $this->render('AppBundle:Default:index.html.twig', [
               'citate' => $citate
             ]);
