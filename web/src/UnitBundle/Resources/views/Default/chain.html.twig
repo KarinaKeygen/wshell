@@ -1,0 +1,72 @@
+{% extends 'WshellBundle::layout.html.twig' %}
+
+{% block title %}Юниты{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block to_main %}
+    <a href="/chapters">
+        <img src="/img/sh40.png">
+
+        <div class="bigtext">wShell</div>
+    </a>
+    <div class="bigtext"> &rarr;Юниты</div>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+
+        <div class="col-sm-3">
+            {% for unit in units %}
+                <div>
+                    <b><a href="/units/single/{{ unit.name }}">{{ unit.name }}</a></b>
+                    {% if unit.type == 1 %}
+                        <span class="label label-default">Служебный</span>
+                    {% elseif unit.type == 2 %}
+                        <span class="label label-warning">Тестовый</span>
+                    {% elseif unit.type == 3 %}
+                        <span class="label label-success">Готов</span>
+                    {% else %}
+                        <span class="label label-danger">Отключён</span>
+                    {% endif %}
+                    <p>{{ unit.anno|raw }}</p>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="col-sm-9">
+          <form class="col-12" action="/units/run">
+              <div class="input-group">
+                  <input type="text" class="form-control" placeholder="Enter CDL expression">
+              <span class="input-group-btn">
+                  <button class="btn btn-default" type="submit">Run</button>
+              </span>
+              </div>
+              <span class="help-block">
+                  Результат отобразится в выводе последнего юнита цепочки. Для просмотра промежуточных данных нужно добавить параметр <b>-all</b>
+              </span>
+          </form>
+          <!-- <div id="chains_out"></div>
+            <div class="panel panel-default">
+                <button type='button' class='close' data-dismiss='alert'>×</button>
+                <div class="panel-body">
+                    <p><span class="label label-default">Служебный</span> - Юнит не предназначен для работы в цепочке.
+                    </p>
+                    <p><span class="label label-warning">Тестовый</span> - Юнит работает нестабильно или планируется его
+                        существенное обновление.</p>
+                    <p><span class="label label-success">Готов</span> - Полноценно работающий юнит.</p>
+                    <p><span class="label label-danger">Отключён</span> - Юнит отключен.</p>
+                    <p>См. описание I/O и дефолтных значений во вкладке 'Схема' конкретного юнитa.
+                        Информацию о составлении цепочек можно найти <a
+                        href="/doc/wShell">здесь</a>.
+                    </p>
+                </div>
+            </div> -->
+        </div>
+    </div>
+{% endblock %}

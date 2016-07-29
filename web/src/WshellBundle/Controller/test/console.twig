@@ -1,0 +1,20 @@
+{% extends 'test.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="/js/vendor/jquery.terminal-0.8.8.min.js"></script>
+    <script>
+        jQuery(function ($) {
+            $('#term').terminal("test/console", {
+                login: true,
+                greetings: "You are authenticated"});
+        });
+    </script>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        {{ message }}
+        <div id="term"></div>
+    </div>
+{% endblock %}

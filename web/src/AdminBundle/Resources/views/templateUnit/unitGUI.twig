@@ -1,0 +1,11 @@
+{% extends mode %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
+
+{% block form %}
+    <form class="form-horizontal" role="form" id="myForm">
+        {{ output }}
+    </form>
+{% endblock %}

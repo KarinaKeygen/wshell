@@ -1,0 +1,30 @@
+// рендер в переменную
+
+$content = $this->renderView(
+    'AcmeHelloBundle:Hello:index.html.twig',
+    ['name' => $name]
+);
+
+return new Response($content);
+
+// или сразу возвращаем:
+return $this->render(
+    'AcmeHelloBundle:Hello:index.html.twig',
+    ['name' => $name]
+);
+
+
+Интересным решением может быть рендер не всей страницы, а лишь части html.
+Экшн возвращающий такой сегмент можно использовать как встроенный экшн:
+
+$content = $this->renderView(
+    'AcmeArticleBundle:Article:recentArticles',[
+    'max' => 3
+]);
+
+// или в twig:
+<div id="sidebar">
+    {{ render(controller('AcmeArticleBundle:Article:recentArticles', {
+        'max': 3
+    })) }}
+</div> 

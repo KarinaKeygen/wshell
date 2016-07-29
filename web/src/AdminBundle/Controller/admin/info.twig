@@ -1,0 +1,36 @@
+{% extends 'admin/base.twig' %}
+
+{% block main %}
+    <div class="row">
+        <div class="col-md-8">
+            <p>
+                <textarea style="resize: none;" name="info" class="form-control col-md-12 col-sm-12 col-xs-12"
+                          rows=18></textarea>
+            </p>
+
+            <p>
+                <button type="submit" class="btn btn-block btn-default">Добавить новость</button>
+            </p>
+        </div>
+
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading ">Заметка:</div>
+                <div class="panel-body">
+                    <><><><><><>
+                </div>
+            </div>
+
+            <div class="alert alert-success">
+                last {{ user.getAllData.lipv4 }} cur.{{ server.REMOTE_ADDR }}
+            </div>
+            <div class="alert alert-success">
+                <div class="row">
+                    <div class="col-md-12">
+                        логи
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

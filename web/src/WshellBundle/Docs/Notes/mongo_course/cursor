@@ -1,0 +1,41 @@
+while ( c.hasNext() ) printjson( c.next() )
+
+Вывод всех документов, на которые указывает курсор.
+Теперь указатель на последнем элементе!
+
+printjson( c[4] )
+
+Напечатать один из элементов
+
+c.toArray()
+выгружает данные из оперативной памяти
+
+
+
+for (var i = 1; i <= 25; i++) db.testData.insert( { x : i } )
+
+Генерация 25 элементов
+
+
+function insertData(dbName, colName, num) {
+
+  var col = db.getSiblingDB(dbName).getCollection(colName);
+
+  for (i = 0; i < num; i++) {
+    col.insert({x:i});
+  }
+
+  print(col.count());
+
+}
+
+insertData("test", "testData", 400)
+
+Задание собственной функции добавления
+
+
+db.serverStatus().metrics.cursor
+
+Узнать параметры курсора
+
+

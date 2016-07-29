@@ -1,0 +1,69 @@
+version: '2'
+
+services:
+    sites:
+        build: sites
+        volumes:
+            - ./sites/files:/usr/share/nginx
+            - ../web:/usr/share/nginx/wshell
+        tty: true # WHAT?
+        entrypoint: /usr/share/nginx/entrypoint.sh
+    nginx:
+        build: nginx
+        ports:
+            - "80:80"
+        links:
+            - php
+        volumes:
+            - ./nginx/conf.d:/etc/nginx/conf.d
+        volumes_from:
+            - sites
+        networks:
+              mynet:
+                ipv4_address: 172.24.0.101
+    php:
+        build: php-fpm
+        ports:
+            - "9000:9000"
+        volumes_from:
+            - sites
+        links:
+            - redis
+            - mongo
+        networks:
+              mynet:
+                ipv4_address: 172.24.0.102
+    redis:
+        build: redis
+        ports:
+            - "6379:6379"
+        volumes:
+            - ./redis/data:/data/db
+        environment:
+            REDIS_ROOT_PASSWORD: secret
+            REDIS_DATABASE: test
+            REDIS_USER: user
+            REDIS_PASSWORD: secret
+        networks:
+              mynet:
+                ipv4_address: 172.24.0.103
+    mongo:
+        build: mongo
+        ports:
+            - "27017:27017"
+        volumes:
+            - ./mongo/data:/data/db
+        environment:
+            MONGO_ROOT_PASSWORD: secret
+            MONGO_DATABASE: wshell
+            MONGO_USER: wshell
+            MONGO_PASSWORD: secret
+        networks:
+              mynet:
+                ipv4_address: 172.24.0.104
+networks:
+  mynet:
+    driver: bridge
+    ipam:
+      config:
+      - subnet: 172.24.0.0/24

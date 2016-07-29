@@ -1,0 +1,15 @@
+wshell:
+    resource: "@WshellBundle/Resources/config/routing.yml"
+    prefix:   /
+
+user:
+    resource: "@UserBundle/Resources/config/routing.yml"
+    prefix:   /
+
+admin:
+    resource: "@AdminBundle/Resources/config/routing.yml"
+    prefix:   /admin
+
+unit:
+    resource: "@UnitBundle/Resources/config/routing.yml"
+    prefix:   /units

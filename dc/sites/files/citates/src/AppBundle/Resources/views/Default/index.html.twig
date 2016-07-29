@@ -1,0 +1,65 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block title %}Meh.{% endblock %}
+
+{% block menu %}
+<li class="active"><a href="/">Главная</a></li>
+<li><a href="/rating">Рейтинг</a></li>
+{{ parent() }}
+{% endblock %}
+
+
+{% block main %}
+{{ parent() }}
+<div class="starter-template">
+{% if citate %}
+    <h1 id="citate" data-id="{{citate._id}}">{{ citate.text }}</h1>
+    {% if is_granted('ROLE_USER') %}
+        <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+        <span id="score">{{ citate.score }}</span>
+        <span class="glyphicon glyphicon-thumbs-down" aria-hidden="true"></span>
+    {% else %}
+        <span id="score">{{ citate.score }}</span>
+    {% endif %}
+{% else %}
+    <h1 id="citate">Цитат больше нет</h1>
+{% endif %}
+</div>
+
+{% if is_granted('ROLE_USER') %}
+<form action="/add" method="POST">
+  <div class="form-group">
+    <input type="text" name="citate" class="form-control" placeholder="Своя цитата">
+  </div>
+  <button type="submit" class="btn btn-default">Отправить</button>
+</form>
+{% endif %}
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        $('.glyphicon-thumbs-up').click(function(){
+            ajax('+');
+        });
+        $('.glyphicon-thumbs-down').click(function(){
+            ajax('-');
+        });
+
+        ajax = function(vote) {
+            var id = $('#citate').attr('data-id');
+            $.ajax({
+                url: "/vote",
+                data: { id:id, vote:vote }
+            }).done(function(msg) {
+                location.reload();
+            }).fail(function() {
+                alert( "error" );
+            });
+        }
+    });
+
+</script>
+{% endblock %}

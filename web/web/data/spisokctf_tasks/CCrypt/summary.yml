@@ -1,0 +1,8 @@
+---
+answer_regex: Crypt0_i5_FUNNNN
+author: tonyo
+category: crypto
+description: |
+  Перечитывая учебник истории, мы наткнулись на странную <a href="https://www.dropbox.com/s/oagm6ut02o099xo/caesar.c">программу</a>. Странно, почему она не компилируется?
+name: CCrypt
+price: 200

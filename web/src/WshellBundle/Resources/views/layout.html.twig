@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% set user = ts.token.user %}
+
+{% block stylesheets %}
+    <link href="/vendor/bootstrap/dist/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <link href="/css/wshell.css" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block javascripts %}
+    <script src="/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <header>
+            {% block nav %}
+                <div class="navbar-form pull-right">
+                    {% if is_granted('ROLE_USER') %}
+                        <div class="btn-group">
+                            <a class="btn btn-default" href="/settings">
+                                <span class="glyphicon glyphicon-cog"></span>
+                            </a>
+                            <a class="btn btn-default" href="/logout">Выйти [{{ user.username }}]</a>
+                        </div>
+                    {% else %}
+                        <a class="btn btn-default" href="/login">Вoйти</a>
+                    {% endif %}
+                </div>
+            {% endblock %}
+            {% block to_main %}
+                <a href="/">
+                    <img src="/img/sh40.png">
+
+                    <div class="bigtext">wShell</div>
+                </a>
+            {% endblock %}
+        </header>
+
+        {% block content %}
+            <div class="row">
+                <div class="col-md-2">
+                    {% block aside %}
+                        <div class="list-group">
+                            <a href="/" class="list-group-item         {{ active1 is defined ? 'active':'' }}">Новости</a>
+                            <a href="/nabla" class="list-group-item    {{ active2 is defined ? 'active':'' }}">Терминал</a>
+                            <a href="/chapters" class="list-group-item {{ active3 is defined ? 'active':'' }}">Механизмы</a>
+                            <a href="/doc" class="list-group-item      {{ active4 is defined ? 'active':'' }}">Инфо</a>
+                        </div>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <div class="list-group">
+                                <a href="/admin/units" class="list-group-item">Админка</a>
+                            </div>
+                        {% endif %}
+                    {% endblock %}
+                </div>
+                <div class="col-md-10">
+                    {% block main %}
+                    {% endblock %}
+                </div>
+            </div>
+        {% endblock %}
+
+    </div>
+{% endblock %}

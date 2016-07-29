@@ -1,0 +1,79 @@
+{% extends 'WshellBundle::layout.html.twig' %}
+
+{% block title %}&nabla;{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="/vendor/jquery.terminal/js/jquery.terminal-0.8.8.min.js"></script>
+    <!-- for scrolling Nabla terminal! -->
+    <script src="/vendor/jquery-mousewheel/jquery.mousewheel.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#terminal').terminal([ "/term", {
+                "mysql": function () {
+                    this.push(function (command, term) { // push next interpreter/ pop for return
+                        $.jrpc("rpc.php", 'mysql', [command], function (json) {
+                            term.echo(json.result);
+                        });
+                    }, {
+                        prompt: 'mysql> ',
+                        login: function (user, password, callback) {
+                            if (user == 'demo' && password == 'secret') {
+                                callback('SECRET TOKEN');
+                            } else {
+                                callback(null);
+                            }
+                        }
+                    });
+                },
+                "format": function (arg) {
+                    this.echo('[[guib;green;white] some text ]')
+                },
+                "scroll": function (arg) {
+                    this.scroll(arg)
+                },
+                "test": function (arg) {
+                    this.test(arg)
+                }
+            }],
+                    {
+                        prompt: '> ',
+                        name: 'nabla',
+                        greetings: "Welcome!\nКраткая справка доступна по команде 'help'",
+                        linksNoReferer: false,
+                        exit: true, // for exit on Ctrl + D
+                        clear: true, // Ctrl + L
+                        login: false,
+                        completion: true,
+                        height: 470,
+                        onRPCError: function () {
+                            this.error('Shit happens, RPC error')
+                        },
+                        exceptionHandler: function (error) {
+                            term.exception(error, 'Fuck, exception!')
+                        }
+                        // onInit, onExit, onClear, onBlur, onFocus, onResize, processRPCResponse
+                        // onTerminalChange, onBeforeLogin, onCommandChange
+                        //keypress [function(event, terminal)]
+                        //keydown [function(event, terminal)]
+                    });
+        });
+    </script>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="/css/jquery.terminal.css" rel="stylesheet">
+{% endblock %}
+
+
+{% block main %}
+
+            <!-- <div id="webgl_nabla">
+                <div id="no_signal">NO SIGNAL</div>
+            </div> -->
+
+    <img src='/img/qw.png' style="position:absolute; right: 25px; top:10px; z-index: 10;">
+    <div id="terminal">
+    </div>
+{% endblock %}

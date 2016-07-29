@@ -1,0 +1,68 @@
+{% extends 'admin/base.twig' %}
+
+{% block main %}
+    <table class="table table-bordered table-hover round">
+        <thead>
+        <tr class="success">
+            <th>id</th>
+            <th>name</th>
+            <th>Email</th>
+            <th>Email confirm</th>
+            <th>Provider</th>
+            <th>active</th>
+            <th>last visit</th>
+            <th>Role</th>
+            <th>Quest Level</th>
+            <th class="info">Edit</th>
+            <th class="info">Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user  in users %}
+            <tr>
+                <td>
+                    {{ user.id }}
+                </td>
+                <td>
+                    {% if user.name %}
+                        {{ user.name }}
+                    {% else %}
+                        NULL
+                    {% endif %}
+                </td>
+                <td>
+                    {% if user.mail %}
+                        {{ user.mail }}
+                    {% else %}
+                        NULL
+                    {% endif %}
+                </td>
+                <td>
+                    {{ user.mail_confirm }}
+                </td>
+                <td>
+                    {{ user.provider }}
+                </td>
+                <td>
+                    {{ user.active }}
+                </td>
+                <td>
+                    {{ user.last_visit }}
+                </td>
+                <td>
+                    {{ user.role }}
+                </td>
+                <td>
+                    {{ user.ql }}
+                </td>
+                <td>
+                    E
+                </td>
+                <td>
+                    D
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,0 +1,8 @@
+---
+answer_regex: Welcome-to-spisok-2013-CTF
+author: kda
+category: stegano
+description: |
+  Добро пожаловать на <a href="https://www.dropbox.com/s/sv77smz288lllhy/task.png">конференцию</a>!
+name: EvilPng
+price: 100

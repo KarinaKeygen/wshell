@@ -1,0 +1,39 @@
+security:
+    role_hierarchy:
+          ROLE_ADMIN: ROLE_USER
+    encoders:
+        Symfony\Component\Security\Core\User\User:
+            algorithm: bcrypt
+            cost: 12
+        UserBundle\Document\User:
+            algorithm: bcrypt
+            cost: 12
+    providers:
+        chain_provider:
+            chain:
+                providers: [in_memory, user_db]
+        in_memory:
+            memory:
+                users:
+                    admin:
+                        password: $2y$12$d3IbQjfvwXpBm27koJkZgeDG3HgWtMlSfsOm4dS2PjUm.r38ipIHC
+                        roles: 'ROLE_ADMIN'
+        user_db:
+            id: my_user_provider
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            anonymous: ~
+            simple_form:
+                authenticator: my_authentificator
+                login_path: login
+                check_path: login_check
+            logout:
+                path:   /logout
+                target: /
+    access_control:
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/user, roles: ROLE_USER }

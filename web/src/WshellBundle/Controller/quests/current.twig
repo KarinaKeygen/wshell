@@ -1,0 +1,62 @@
+{% extends 'main/base.twig' %}
+
+{% block title %}Квесты{% endblock %}
+
+{% block stylesheets %}
+    <link href="/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <link href="/css/wshell.css" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block javascripts %}
+    <script src="/js/vendor/jquery.min.js"></script>
+    <script src="/js/vendor/bootstrap.min.js"></script>
+{% endblock %}
+
+{% block to_main %}
+    <a href="/chapters">
+        <img src="/img/sh40.png">
+
+        <div class="bigtext">wShell</div>
+    </a>
+    <div class="bigtext"> &rarr;Квесты</div>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-8 col-sm-offset-2">
+            {% if user.getAllData.ql == 0 %}
+                <h2>Стартовый уровень</h2>
+                <p>Привет! Здесь я периодически выкладываю разные задачки,
+                    решение которых, как правило, не требует специфичных знаний.
+                    Нужны только элементарная компьютерная грамотность, любопытство,
+                    умение логически мыслить и совсем немножко удачи.</p>
+                <p>Подтверждением решения является флаг - осмысленный набор из цифр и букв,
+                    который нужно ввести в поле с надписью "Enter Key".</p>
+                <p>Задачи выдаются по порядку, за каждую решенную задачу повышается
+                    ваш <b>Quest Level</b> - пока я не знаю, как его применить, но
+                    плюшки будут обязательно =)</p>
+                <p>К каждой задаче могут опционально идти следующие вспомогательные поля:</p>
+                <ul>
+                    <li><b>Briefing</b></li>
+                    <li><b>Data</b></li>
+                    <li><b>Hint</b></li>
+                </ul>
+            {% else %}
+                <h2>Уровень {{ user.getAllData.ql }}</h2>
+                {% if finish %}
+                    <b>На данный момент это последний левел! Заходите позже.</b>
+                {% else %}
+                    <p><b>Описание: </b>{{ task.briefing }}</p>
+                    <p><b>Данные: </b>{{ task.data }}</p>
+                {% endif %}
+            {% endif %}
+            <form class="form-inline" role="form" method="POST">
+                <div class="form-group">
+                    <label class="sr-only" for="key">Enter key</label>
+                    <input type="text" class="form-control" name="key" placeholder="Enter key">
+                </div>
+                <button type="submit" class="btn btn-default">Level Up</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

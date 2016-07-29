@@ -1,0 +1,8 @@
+---
+answer_regex: '#f4d047cc02b4b077232e94d766c11aa2#'
+author: awengar
+category: reverse
+description: |
+  Введите <a href="https://www.dropbox.com/s/kpog4kri8pjd4lh/rev100.exe">номер</a> аудитории, где spisokCTF никогда не будет проходить...
+name: FindRoom
+price: 100

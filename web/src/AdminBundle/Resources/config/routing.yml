@@ -1,0 +1,8 @@
+units:
+    path:     /units/{unitId}
+    methods:  GET
+    defaults: { _controller: AdminBundle:Unit:index, unitId:null }
+edit_unit:
+    path:     /units/post
+    methods:  POST
+    defaults: { _controller: AdminBundle:Unit:post }

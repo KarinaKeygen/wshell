@@ -1,0 +1,64 @@
+{% extends 'main/base.twig' %}
+
+{% block title %}Чаты{% endblock %}
+
+{% block stylesheets %}
+    <link href="/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+    <link href="/css/wshell.css" type="text/css" rel="stylesheet">
+    <link href="/css/chats.css" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block javascripts %}
+    <script src="/js/vendor/jquery.min.js"></script>
+    <script src="/js/vendor/bootstrap.min.js"></script>
+{% endblock %}
+
+{% block to_main %}
+    <a href="/chapters">
+        <img src="/img/sh40.png">
+
+        <div class="bigtext">wShell</div>
+    </a>
+    <div class="bigtext"> &rarr;Чаты</div>
+{% endblock %}
+
+{% block content %}
+    <header class="row">
+        <div>
+            <div class="input-group">
+                <input id="textSend" type="text" class="form-control" autofocus>
+			<span class="input-group-btn">
+			<button id="btnSend" class="btn btn-primary">Отправить</button>
+			</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="row">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#tab1" data-toggle="tab">offtop</a></li>
+        </ul>
+        <main class="col-sm-8">
+            <div class="chat chat_offtop"></div>
+        </main>
+
+        <aside class="col-sm-4">
+            <div id="userList">
+            </div>
+        </aside>
+    </div>
+
+    <footer class="row">
+        {#<span style="-webkit-transform: rotate(180deg); transform: rotate(180deg); display: inline-block;">#}
+        <span>
+    Логи чатов, на которые вы подписаны, можно посмотреть в <a href="/settings">настройках</a>.
+    </span>
+
+        {% if user.isVisitor %}
+            <a href="/archive" class="pull-right">Архив ▶</a>
+        {% else %}
+            <div class="pull-right"><a href="/logout">Выйти({{ user.getAllData.name }})</a> <a href="/archive">Архив ▶</a>
+            </div>
+        {% endif %}
+    </footer>
+{% endblock %}

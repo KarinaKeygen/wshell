@@ -1,0 +1,43 @@
+{% extends 'admin/base.twig' %}
+
+{% block main %}
+    <h3>dbReboot</h3>
+    <p>Восстановление базы данных до начального состояния. Возможно только если база данных пуста.</p>
+    <p>
+        <button class="btn btn-default">dbReboot</button>
+        <span id="preload"></span>
+    </p>
+
+    <p>+ Бэкапы, упаковщики исходников, тесты</p>
+
+
+    <div id="result"></div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function () {
+            $(".btn").on('click', function () {
+                command = this.outerText;
+
+                $.ajax({
+                    beforeSend: function () {
+                        $('#preload').empty();
+                        $('#preload').append('<img src="/img/loader.gif">');
+                    },
+                    complete: function () {
+                        $('#preload').empty();
+                    },
+                    type: "POST",
+                    url: "/admin/tools",
+                    data: {command: command},
+                    dataType: 'html'
+                }).done(function (msg) {
+                    $('#result').empty();
+                    $('#result').append(msg);
+                });
+            });
+        });
+    </script>
+{% endblock %}

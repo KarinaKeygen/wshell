@@ -1,0 +1,7 @@
+services:
+    my_user_provider:
+        class: UserBundle\Security\UserProvider
+        arguments: ['@mongo']
+    my_authentificator:
+        class: UserBundle\Security\Authentificator
+        arguments: ['@security.password_encoder', '@mongo']

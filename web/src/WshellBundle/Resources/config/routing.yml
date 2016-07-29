@@ -1,0 +1,27 @@
+# Main
+news:
+    path:     /
+    defaults: { _controller: WshellBundle:Main:news }
+nabla:
+    path:     /nabla
+    defaults: { _controller: WshellBundle:Main:nabla }
+term:
+    path:     /term
+    defaults: { _controller: WshellBundle:Main:term }
+chapters:
+    path:     /chapters
+    defaults: { _controller: WshellBundle:Main:chapters }
+doc:
+    path:     /doc/{book}
+    defaults: { _controller: WshellBundle:Main:doc, book:'' }
+about:
+    path:     /about
+    defaults: { _controller: WshellBundle:Main:about }
+
+# Map
+map:
+    path:     /map
+    defaults: { _controller: WshellBundle:Map:map }
+observer:
+    path:     /observer
+    defaults: { _controller: WshellBundle:Map:observer }

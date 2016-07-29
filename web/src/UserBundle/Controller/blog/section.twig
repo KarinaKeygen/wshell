@@ -1,0 +1,22 @@
+{% extends 'blog/base.twig' %}
+
+{% block title %}{{ location.name }}{% endblock %}
+
+{% block discrip %}
+    {% if location.discrip %}
+        <div id="discrip">{{ location.discrip }}</div>
+    {% endif %}
+{% endblock %}
+
+{% block datafield %}
+    {% for post in posts %}
+        <div id="post">
+            <h2><a href="/post/{{ post._id }}">{{ post.name }}</a></h2>
+            {{ post.content|raw }}
+            <hr>
+            <div id="time">{{ post.creationTime.date }}</div>
+        </div>
+    {% else %}
+        <h2>Здесь пока нет записей</h2>
+    {% endfor %}
+{% endblock %}

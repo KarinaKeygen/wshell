@@ -1,0 +1,16 @@
+---
+answer_regex: 'd3c0mp1l3d'
+author: B@rmaley.exe
+category: reverse
+description: |
+  <p>В новейшей операционной системе BolgenOS 2.0 ключи генерируются по
+  идентификаторам вида bea:dead:137, которые зависят от конфигурации ПК.</p>
+
+  <p>Найдите ключ для идентификатора 99d:685f:233</p>
+
+  <ul>
+    <li><a href="https://www.dropbox.com/s/8pfi93c856ewrfo/validator.jar" rel="nofollow">Валидатор</a></li>
+    <li><code>$ java -jar validator.jar %id% %key%</code></li>
+  </ul>
+name: Validator
+price: 200

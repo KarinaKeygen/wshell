@@ -1,0 +1,73 @@
+{% extends 'WshellBundle::layout.html.twig' %}
+
+{% block title %}{{ unit.name }}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="/css/obsidian.css" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="/vendor/google-code-prettify/bin/prettify.min.js"></script>
+    <script>
+
+        // переключение вкладок
+        $(".input_toogle").click(function (event) {
+            $('#input_tab1').toggle();
+            $('#input_tab2').toggle();
+        });
+
+        // подсветка кода
+        $(document).ready(function () {
+            prettyPrint();
+        });
+
+    </script>
+    <script src="/js/gui/{{ unit.guiMode }}.js"></script>
+    <script src="/js/units/{{ unit.name }}.js"></script>
+{% endblock %}
+
+{% block to_main %}
+    <a href="/chapters">
+        <img src="/img/sh40.png">
+
+        <div class="bigtext">wShell</div>
+    </a>
+    <div class="bigtext"><a href="/units/chain">&rarr;Юниты</a>&rarr;{{ unit.name }}</div>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <ul class="nav nav-pills">
+            <li class="active"><a href="#tab1" data-toggle="tab">UI</a></li>
+            <li><a href="#tab2" data-toggle="tab">Описание</a></li>
+            <li><a href="#tab3" data-toggle="tab">Схема</a></li>
+            <li><a href="#tab4" data-toggle="tab">Код</a></li>
+        </ul>
+        <div class="tab-content">
+            {% if shutdown %}
+                <p>Юнит отключен</p>
+            {% else %}
+                <div class="tab-pane active" id="tab1">
+                    {% include 'UnitBundle::gui/' ~ unit.guiMode ~ '.html.twig' %}
+                </div>
+
+                <div class="tab-pane" id="tab2">
+                    <article>
+                        {{ unit.info|raw }}
+                    </article>
+                </div>
+
+                <div class="tab-pane" id="tab3">
+                    <pre>{{ unit.hookup }}</pre>
+                </div>
+
+                <div class="tab-pane" id="tab4">
+            <pre id="unit_edit" class="prettyprint linenums pre-scrollable form-control"
+                 name="info">{{ unit.source|e }}</pre>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

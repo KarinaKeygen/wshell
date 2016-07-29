@@ -1,0 +1,53 @@
+1. Аутентификация - определяет, кто есть пользователь (Firewalls)
+2. Авторизация    - определяет, что ему доступно (Access Controls)
+
+security:
+    access_denied_url:    						// куда перенаправлять при ошибке
+    session_fixation_strategy: migrate			// 
+    hide_user_not_found:  true					//
+    always_authenticate_before_granting: false	//
+    erase_credentials:    true					//
+    access_decision_manager: * 					//
+    acl: *										//
+
+    // Чаще всего используются следующие параметры:
+    encoders: *									// настройки шифрования
+    providers: *								// cущности для идентификации
+    firewalls: *								// см.ниже
+    access_control: *							// см.нижеxd
+    role_hierarchy: *							// определяет вложенность ролей
+
+
+В разделе access_control задается соответствие URLs c разными
+требованиями доступа. Пример:
+
+access_control:
+	- { path: ^/cart/checkout, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+    - { path: ^/admin, roles: ROLE_USER_IP, ips: [127.0.0.1, ::1] }
+    - { path: ^/admin, roles: ROLE_USER_HOST, host: symfony\.com$ }
+    - { path: ^/admin, roles: ROLE_USER_METHOD, methods: [POST, PUT] }
+    - { path: ^/admin, roles: ROLE_USER }
+
+
+    
+
+Костыль, но иногда может понадобиться установить права прямо в контроллерt или шаблоне:
+
+if (false === $this->get('security.context')->isGranted('ROLE_ADMIN')) {
+    throw $this->createAccessDeniedException('Unable to access this page!');
+}
+
+$expression = new Expression('"ROLE_ADMIN" in roles or (user and user.isSuperAdmin())');
+ if (!$this->get('security.context')->isGranted($expression)) {
+    throw new AccessDeniedException();
+}
+
+{% if is_granted('ROLE_ADMIN') %}
+    <a href="...">Delete</a>
+{% endif %}
+
+{% if is_granted(expression(
+    '"ROLE_ADMIN" in roles or (user and user.isSuperAdmin())'
+)) %}
+    <a href="...">Delete</a>
+{% endif %}

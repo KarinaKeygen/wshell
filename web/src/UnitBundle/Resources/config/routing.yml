@@ -1,0 +1,9 @@
+chain:
+    path:     /chain
+    defaults: { _controller: UnitBundle:Default:chain }
+single:
+    path:     /single/{name}
+    defaults: { _controller: UnitBundle:Default:single }
+run:
+    path:     /run/{name}
+    defaults: { _controller: UnitBundle:Default:run }

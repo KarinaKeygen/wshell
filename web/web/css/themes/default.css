@@ -1,0 +1,64 @@
+body {
+	background:graytext;
+	padding:10px;
+}
+
+header{
+	padding:.3em;
+	padding-left:3em;padding-right:3em;
+	border-top-left-radius:.5em;
+	border-top-right-radius:.5em;
+	background:black;
+	color:white;
+	max-width:50em;
+	min-width:5em;
+	margin: auto;
+                      vertical-align:middle;
+}
+#discrip{
+	padding:.3em;
+	padding-left:3em;padding-right:3em;
+	background:rgba(1,1,1,.5);
+	color:white;
+	max-width:50em;
+	min-width:5em;
+	margin: auto;
+}
+header a{
+	text-decoration:none;
+	color:white;
+	padding-left:.4em;
+	padding-right:.4em;
+}
+header :hover{
+	color:silver;
+}
+
+#datafield{
+	background:white;
+	padding:1em 3em 1em 3em;
+	border-bottom-left-radius:.5em;
+	border-bottom-right-radius:.5em;
+	max-width:50em;
+	min-width:5em;
+                     min-height:30em;
+	margin: auto;
+                     padding-bottom: 1em;
+}
+#datafield a {
+	text-decoration:none;
+	font-weight:bold;
+}
+#datafield :visited{
+	color:gray;
+}
+#datafield :link{
+	color:#050;
+}
+#time{
+	font-size:14px;
+	float: right;
+}
+#post{
+	padding-bottom:2em;
+}

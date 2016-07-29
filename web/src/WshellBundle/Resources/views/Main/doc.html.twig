@@ -1,0 +1,66 @@
+{% extends 'WshellBundle::layout.html.twig' %}
+
+{% block title %}wShell doc{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="/css/wshell.css">
+    <link rel="stylesheet" href="/css/doc.css">
+    <link rel="stylesheet" href="/css/obsidian.css">
+{% endblock %}
+
+{% block body %}
+    <div id="wrapper">
+        <a href="/">
+            <img src="/img/sh40.png">
+
+            <div class="bigtext">wShell</div>
+        </a>
+        {% for name, content in sections %}
+            <h2>{{ name }}</h2>
+            {{ content|raw }}
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="/vendor/google-code-prettify/bin/prettify.min.js"></script>
+    <script src="/vendor/epiceditor/epiceditor/js/epiceditor.min.js"></script>
+    <script src="/vendor/devbridge-autocomplete/dist/jquery.autocomplete.min.js"></script>
+    <script>
+        $(function () {
+
+            $('#wrapper').before('<div id="toc"> <input id="search" type="text" autofocus><ul id="toc-list"></ul> </div>');
+            $('#search').after('<h1><a href="#">{{ book ?: 'Поиск книги' }}</a></h1>');
+            $("h2, h3").each(function (idx, val) {
+                var h = $(this),
+                        title = h.text(),
+                        link = title.toLowerCase().replace(/(\,|\(|\)|\[|\]|\:|\.)/g, '').replace(/\s/g, '-');
+
+                if (idx >= 0) {
+                    h.attr("id", link);
+                }
+                if (idx >= 0) {
+                    h.html('<a href="#' + link + '">' + title + '</a>');
+                    $("#toc-list").append('<li class="toc-' + this.nodeName.toLowerCase() + '"><a id="" href="#' + link + '">' + title + '</a></li>');
+                }
+            });
+            $('tr:even').addClass('even');
+
+            $('pre').addClass('prettyprint');
+            prettyPrint();
+
+            $(window).resize(function () {
+                $('#toc').height(window.innerHeight + 'px');
+            }).trigger('resize');
+
+            // autocomplete
+            $('#search').autocomplete({
+                lookup: {{ books|raw }},
+                onSelect: function (suggestion) {
+                    window.location.pathname = 'doc/' + suggestion.value
+                }
+            });
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'WshellBundle::layout.html.twig' %}
+
+{% block nav %}
+{% endblock %}
+
+{% block content  %}
+    <div class="row">
+        <div class="col-md-3">
+            {% block aside %}
+
+                    <p>
+                        <form role="form" method="POST" action="{{ path('oauth') }}" >
+                            <div class="btn-group">
+                                <button type="submit" class="btn btn-default" name="vk">VK</button>
+                                <button type="submit" class="btn btn-default" name="github">GitHub</button>
+                            </div>
+                        </form>
+                    </p>
+                    <form role="form" method="POST" action="{{ path('login_check') }}">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Никнейм" name="_username" value="{{ last_username }}">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" placeholder="Пароль" name="_password">
+                        </div>
+                        <div class="form-group">
+                            {% if error %}
+                                <div class="alert alert-warning" role="alert">{{ error.message }}</div>
+                            {% endif %}
+                        </div>
+                        <button type="submit" class="btn btn-default">Войти</button>
+                    </form>
+            {% endblock %}
+        </div>
+        <div class="col-md-9">
+            {% block main %}
+                <p>Всё, что есть на сайте, полноценно работает без регистрации, но только
+                    в рамках текущей сессии. Для постоянного хранения каких-либо данных необходимо
+                    себя идентифицировать, т.е. переодически предоставлять некоторое
+                    постоянное значение (токен). Тут есть два варианта: вводить его самостоятельно
+                    (в этом случае в роли токена выступает пара логин+хэш пароля), либо получать его
+                    от доверенного стороннего ресурса (например, при помощи OAuth протокола).</p>
+            {% endblock %}
+        </div>
+    </div>
+{% endblock %}

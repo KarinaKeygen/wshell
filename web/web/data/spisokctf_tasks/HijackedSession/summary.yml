@@ -1,0 +1,10 @@
+---
+answer_regex: sUp3rS3cretPas$ss_Word
+author: B@rmaley.exe
+category: web
+description: |
+  Нашими агентами была перехвачена сессия одного крайне важного товарища!
+  Немедленно воспользуйтесь ею и узнайте его пароль!<br />
+  SessionID: <code>a0cafebabe0feeded0deadbeef0faced</code><br />
+name: HijackedSession
+price: 100

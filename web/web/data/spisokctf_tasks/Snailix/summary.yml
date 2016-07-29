@@ -1,0 +1,24 @@
+---
+answer_regex: "echo \"test... test... test...\" | perl -e '$??s:;s:s;;$?::s;;=]=>%-{<-|}<&|`{;;y; -/:-@[-`{-};`-{/\" -;;s;;$_;see'"
+author: AvImd
+category: forensics
+description: |
+  Сможете ли вы украсть секретное кибероружие с этого защищенного военного сервера? <br>
+  Для *nix пользователей:
+  <ul>
+          <li><tt>ssh -i <a href="https://www.dropbox.com/s/ui08h6qoy2crfmv/hedgekey">hedgekey</a> hedgehog@snail.ixx.io</tt>
+          <li><tt>chmod 400 hedgehog;!!</tt> если ssh не запускается
+  </ul>
+  <br>
+  Для Windows пользователей:
+  <ul>
+          <li>скачайте <a href=http://mobaxterm.mobatek.net/>MobaXterm</a>
+          <li>распакуйте, запустите первый (не Customizer) exe
+          <li>установите UTF-8: "Settings" меню --&gt; "configuration" --&gt; вкладка "Terminal" --&gt; charset --&gt; choose the "UTF-8 (unicode)"; сохраните настройки и откройте новую вкладку
+          <li>скачайте <a href="https://www.dropbox.com/s/ui08h6qoy2crfmv/hedgekey">hedgekey</a>
+          <li><tt>cd /cygdrive/c/Users/User/Downloads...</tt> (перейдите к месту, куда вы скачали файл)
+          <li>следуйте инструкциям для *nix пользователей
+  </ul>
+  Удачи!
+name: Snailix
+price: 200

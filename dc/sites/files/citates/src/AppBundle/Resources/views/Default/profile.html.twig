@@ -1,0 +1,41 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block title %}Meh.{% endblock %}
+
+{% block menu %}
+<li><a href="/">Главная</a></li>
+<li><a href="/rating">Рейтинг</a></li>
+<li class="active"><a href="/profile">Профиль</a></li>
+<li><a href="/logout">Выйти ({{user}})</a></li>
+{% endblock %}
+
+
+{% block main %}
+<img src="{{ userpic }}" width="100" height="100" />
+<h1>Мои цитаты</h1>
+{% if citates %}
+    <table class="table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Text</th>
+          <th>Score</th>
+        </tr>
+      </thead>
+      <tbody>
+    {% for citate in citates %}
+        <tr>
+          <th scope="row">{{ loop.index }}</th>
+          <td>{{ citate.text }}</td>
+          <td>{{ citate.score }}</td>
+        </tr>
+    {% else %}
+    {% endfor %}
+      </tbody>
+    </table>
+{% else %}
+    Пока тут ничего нет
+{% endif %}
+
+
+{% endblock %}

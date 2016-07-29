@@ -1,0 +1,20 @@
+{% extends 'WshellBundle::layout.html.twig' %}
+
+{% block title %}Механизмы{% endblock %}
+
+
+{% block main %}
+    {% for chapter in chapters %}
+        <div class="col-md-4">
+            <a href="{{ chapter.link }}" class="thumbnail">
+                <img src="{{ chapter.img }}">
+
+                <div class="caption visible-md visible-lg">
+                    <h3>{{ chapter.title }}</h3>
+
+                    <p>{{ chapter.anno }}</p>
+                </div>
+            </a>
+        </div>
+    {% endfor %}
+{% endblock %}

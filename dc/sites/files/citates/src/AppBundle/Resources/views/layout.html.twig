@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% set user = ts.token.user %}
+
+{% block stylesheets %}
+<style>
+@import 'https://fonts.googleapis.com/css?family=Roboto';
+body {
+  padding-top: 50px;
+}
+.starter-template {
+    font-family: 'Roboto', sans-serif !important;
+    font-size: 40px;
+    padding: 300px 15px;
+    text-align: center;
+}
+.score {
+    padding: 10px;
+}
+#vk_auth {
+    position: absolute;
+}
+</style>
+{% endblock %}
+
+{% block body %}
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <!-- <a class="navbar-brand" href="#">Цитаты</a> -->
+    </div>
+    <div id="navbar" class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+          {% block menu %}
+          {% if is_granted('ROLE_USER') %}
+            <li><a href="/profile">Профиль</a></li>
+            <li><a href="/logout">Выйти ({{user}})</a></li>
+          {% endif %}
+          {% endblock %}
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div>
+</nav>
+
+<div class="container">
+  {% block main %}
+      {% if not is_granted('ROLE_USER') %}
+          <div id="vk_auth"></div>
+          <script type="text/javascript">
+              VK.init({apiId: 5567436});
+              VK.Widgets.Auth("vk_auth", {redesign: 1, width: "200px", authUrl: '/login'});
+          </script>
+      {% endif %}
+  {% endblock %}
+</div>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script type="text/javascript" src="//vk.com/js/api/openapi.js?125"></script>
+{% endblock %}

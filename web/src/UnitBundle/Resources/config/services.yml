@@ -1,0 +1,4 @@
+services:
+   wamp.client:
+       class: UnitBundle\Service\WampClient
+       arguments: [%realm%, %wampUrl%]

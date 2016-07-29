@@ -1,0 +1,108 @@
+{% extends 'AdminBundle::layout.html.twig' %}
+
+{% block main %}
+    <form role="form" method="POST" action="/admin/units/post">
+        <ul class="list-inline">
+            {% for un in units %}
+                <li>
+                    <b><a href="/admin/units/{{ un._id }}">{{ un.name }}</a></b>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <!-- source & view -->
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+                <label for="unit_source" class="sr-only">unit_source</label>
+                <textarea rows=12 class="form-control" id="unit_source" name="source"
+                       placeholder="Код">{{ unit.source }}</textarea>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+                <label for="unit_view" class="sr-only">view</label>
+                <textarea rows=12 class="form-control" id="unit_view" name="view"
+                       placeholder="UI">{{ unit.view }}</textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label for="unit_name" class="sr-only">unit_name</label>
+                    <input type="text" class="form-control" id="unit_name" value="{{ unit.name }}" name="name"
+                           placeholder="Имя">
+                </div>
+
+                <div class="form-group">
+                    <label for="unit_stage" class="sr-only">unit_type</label>
+                    <select class="form-control" id="unit_type" name="type">
+                        <option {% if unit.type==1 %} selected {% endif %} value="1">Служебный</option>
+                        <option {% if unit.type==2 %} selected {% endif %} value="2">Тестовый</option>
+                        <option {% if unit.type==3 %} selected {% endif %} value="3">Готов</option>
+                        <option {% if unit.type==0 %} selected {% endif %} value="0">Отключен</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="unit_anno" class="sr-only">unit_anno</label>
+                    <input type="text" class="form-control" id="unit_anno" value="{{ unit.anno }}" name="anno"
+                           placeholder="Аннотация">
+                </div>
+
+                <div class="form-group">
+                    <label for="unit_hookup" class="sr-only">unit hookup</label>
+                    <pre style="padding:0; border:0;"><textarea style="resize: none;" name="hookup" class="form-control"
+                                                                rows=12
+                                                                placeholder="Схема">{{ unit.hookup }}</textarea></pre>
+                </div>
+
+                <div class="col-xs-4 col-md-4">
+                    <label for="unit_gui_mode" class="sr-only">unit_gui_mode</label>
+                    <select class="form-control input-sm" id="unit_gui_mode" name="guiMode">
+                        <option {% if unit.guiMode=='request' %} selected {% endif %} value="request">Запрос</option>
+                        <option {% if unit.guiMode=='cli' %} selected {% endif %} value="cli">Терминал</option>
+                        <option {% if unit.guiMode=='interactive' %} selected {% endif %} value="interactive">
+                            Интерактив
+                        </option>
+                    </select>
+                </div>
+                <div class="col-xs-4 col-md-4">
+                    <label for="access" class="sr-only">access</label>
+                    <select class="form-control input-sm" id="unit_access" name="access">
+                        <option {% if unit.access=='public' %} selected {% endif %} value="public">public</option>
+                        <option {% if unit.access=='private' %} selected {% endif %} value="private">private</option>
+                    </select>
+                </div>
+                <div class="col-xs-4 col-md-4">
+                    <label for="language" class="sr-only">language</label>
+                    <select class="form-control input-sm" id="language" name="language">
+                        <option {% if unit.language=='php' %} selected {% endif %} value="php">php</option>
+                        <option {% if unit.language=='python' %} selected {% endif %} value="python">python</option>
+                    </select>
+                </div>
+
+                <h3>
+                    <small>Последнее изменение: {{ unit.lastUpdate|date("d-m-Y") }}</small>
+                </h3>
+            </div>
+
+            <div class="col-md-7">
+                <div class="form-group">
+                    <textarea style="resize: none;" name="info" class="form-control col-md-12 col-sm-12 col-xs-12"
+                              rows=18 placeholder="Описание">{{ unit.info }}</textarea>
+                </div>
+
+                <div class="form-group">
+                    <input type="hidden" name="_id" value="{{ unit._id }}">
+                    <button type="submit" class="btn btn-block btn-default">Сохранить изменения</button>
+                </div>
+
+            </div>
+        </div>
+    </form>
+{% endblock %}

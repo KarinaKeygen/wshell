@@ -1,0 +1,20 @@
+mongo
+
+run
+sudo docker run --name some-mongo -d mongo
+
+app (in already exist container)
+sudo docker run --name some-app --link some-mongo:mongo -d application-that-uses-mongo
+
+mongo client
+sudo docker run -it --link some-mongo:mongo --rm mongo sh -c 'exec mongo "$MONGO_PORT_27017_TCP_ADDR:$MONGO_PORT_27017_TCP_PORT/test"'
+
+conf params
+sudo docker run --name some-mongo -d mongo --storageEngine wiredTiger
+
+store data
+sudo docker run --name some-mongo -v /my/own/datadir:/data/db -d mongo:tag
+
+
+Если надо замутить replica set
+http://www.emergingafrican.com/2016/02/deploying-mongodb-replica-sets-with.html

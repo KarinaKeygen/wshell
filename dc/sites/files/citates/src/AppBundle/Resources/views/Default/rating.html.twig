@@ -1,0 +1,32 @@
+{% extends 'AppBundle::layout.html.twig' %}
+
+{% block title %}Meh.{% endblock %}
+
+{% block menu %}
+<li><a href="/">Главная</a></li>
+<li class="active"><a href="/rating">Рейтинг</a></li>
+{{ parent() }}
+{% endblock %}
+
+{% block main %}
+<h1>TOP 30</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Text</th>
+      <th>Score</th>
+    </tr>
+  </thead>
+  <tbody>
+{% for citate in citates %}
+    <tr>
+      <th scope="row">{{ loop.index }}</th>
+      <td>{{ citate.text }}</td>
+      <td>{{ citate.score }}</td>
+    </tr>
+{% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

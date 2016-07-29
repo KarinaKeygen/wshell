@@ -1,0 +1,51 @@
+body {
+    margin: 0 auto;
+	font-family: Calibri, myriad-pro, Helvetica, sans-serif;
+	font-size: 14px;
+	margin: .5em;
+}
+.label {
+	font-size: 16px;
+}
+
+/* header */
+header{
+	padding-bottom: .5em;
+}
+#textSend{
+	font-size: 16px;
+}
+/* main */
+main {
+	background-color: #fff;
+	height: 30em;
+	padding-right: 0em !important;
+}
+.chat {
+	padding:1em;
+	overflow: auto;
+	overflow-x: hidden;
+	height: 30em;
+}
+.chat::-webkit-scrollbar{
+    background-color: #ddd;
+}
+.chat::-webkit-scrollbar-thumb{
+    background-color: gray;
+}
+
+/* aside */
+aside {
+	padding:1em;
+	background-color: #fff;
+	opacity: 0.6;
+	height: 30em;
+}
+
+/* footer */
+footer {
+	
+	background-color: #fff;
+	padding: 1em;
+	opacity: 0.6;
+}

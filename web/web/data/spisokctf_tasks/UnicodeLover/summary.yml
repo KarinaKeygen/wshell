@@ -1,0 +1,8 @@
+---
+answer_regex: UnicodeMegaRox
+author: tonyo
+category: forensics
+description: |
+  Один наш иностранный знакомый захотел что-то нам отправить, но, к сожалению, по пути <a href="https://www.dropbox.com/s/tpdkkwp4rdc2zes/task_message.txt">сообщение</a> было повреждено. Помогите нам узнать, что же он хотел сказать!
+name: UnicodeLover
+price: 200

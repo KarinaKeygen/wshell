@@ -1,0 +1,108 @@
+{% extends 'admin/base.twig' %}
+
+{% block main %}
+    <ul class="nav nav-pills">
+        <li class="active"><a id="path">{{ path }}</a></li>
+        {% for doc in pathDocs %}
+            <li><a class="docs">{{ doc }}</a></li>
+        {% endfor %}
+    </ul>
+    <div id="epiceditor" style="padding-top: .5em;">Редактирование документации.</div>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="/css/obsidian.css" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="/js/vendor/epiceditor.min.js"></script>
+    <script>
+
+        var opts = {
+            container: 'epiceditor',
+            basePath: '/css/',
+            clientSideStorage: false,
+            file: {
+                defaultContent: '123'
+            },
+            theme: {
+                base: 'epiceditor/themes/base/epiceditor.css',
+                preview: 'wshell.css',
+                editor: 'epiceditor/themes/editor/epic-dark.css'
+            },
+            button: {
+                preview: true,
+                fullscreen: true,
+                bar: "auto"
+            },
+            shortcut: {
+                modifier: 18,
+                fullscreen: 70,
+                preview: 80
+            },
+            string: {
+                togglePreview: 'Режим предпросмотра',
+                toggleEdit: 'Режим редактирования',
+                toggleFullscreen: 'На весь экран'
+            },
+            autogrow: {
+                minHeight: 300,
+                maxHeight: 440
+            }
+        };
+
+        $(".nav-pills").on('click', '#path', function () {
+            pathName = $("#path").html();
+            $.ajax({
+                type: "POST",
+                url: "/admin/doc",
+                data: {path: pathName},
+                dataType: 'json'
+            }).done(function (msg) {
+                // dirUp
+                $('#path').empty();
+                $('#path').append(pathName.replace(/(\w+\/)$/, ''));
+                $('li:not(:first-child)').remove();
+                msg.dirDocs.forEach(function (entry) {
+                    $('ul.nav-pills').append('<li><a class="docs">' + entry + '</a></li>');
+                });
+            });
+        });
+
+
+        $(".nav-pills").on('click', '.docs', function () {
+            docName = this.text;
+            pathName = $("#path").html();
+            $.ajax({
+                type: "POST",
+                url: "/admin/doc",
+                data: {docName: docName, path: pathName},
+                dataType: 'json'
+            }).done(function (msg) {
+
+                // dirDown
+                if (msg.text === undefined) {
+                    $('#path').empty();
+                    $('#path').append(pathName + docName);
+                    $('li:not(:first-child)').remove();
+                    msg.dirDocs.forEach(function (entry) {
+                        $('ul.nav-pills').append('<li><a class="docs">' + entry + '</a></li>');
+                    });
+
+                    // edit Doc
+                } else {
+                    opts.file.defaultContent = msg.text;
+                    var editor = new EpicEditor(opts).load();
+
+                    prettyPrint();
+                }
+
+            });
+        });
+
+
+    </script>
+{% endblock %}

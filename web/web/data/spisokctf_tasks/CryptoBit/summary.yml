@@ -1,0 +1,9 @@
+---
+answer_regex: ilikexor
+author: Patrick
+category: crypto
+description: |
+  С кафедры битовых операции было перехвачено <a href="https://www.dropbox.com/s/hfoz8ywphvyekbv/readmeifyoucan.txt">сообщение</a> особой важности.<br />
+  Некто выяснил, что следующие байты очень значимы: <code>31 33 73 13 37</code>, но что с ними делать?
+name: CryptoBit
+price: 300

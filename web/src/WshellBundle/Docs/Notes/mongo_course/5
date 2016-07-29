@@ -1,0 +1,19 @@
+### Aggregation Framework
+
+Mongo может собирать информацию по хранимым данным, что снижает нагрузку
+на само приложение.
+
+aggregate( [
+	{$match:{status:"A"}},
+	{$group:{_id:"$cust_id", total:{$sum:"$amount"}}}
+] )
+
+Промежуточные операции это:
+filter, document transformations
+В результате получается коллекция документов, с, возможно, новыми
+полями.
+
+aggregate {[
+	{$group: {_id:'$author', num_book:{$sum:1}}}
+]}
+Вернет коллекцию с _id: автор и num_book: количество его книг

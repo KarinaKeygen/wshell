@@ -1,0 +1,74 @@
+{% extends 'WshellBundle::layout.html.twig' %}
+
+{% block title %}Internet Observer{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="/css/wshell.css" type="text/css" rel="stylesheet">
+    <link href="css/obs.css" rel="stylesheet" type="text/css">
+    <link href="css/simptip-mini.css" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="vendor/mixitup/build/jquery.mixitup.min.js"></script>
+    <script src="/js/obs.js"></script>
+{% endblock %}
+
+{% block to_main %}
+    <a href="/chapters">
+        <img src="/img/sh40.png">
+
+        <div class="bigtext">wShell</div>
+    </a>
+    <div class="bigtext"> &rarr;Observer <span id="curIp"></span></div>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-9" id="Container" class="container">
+
+            {% for i in 0..255 %}
+
+                {% if i < 3 %}
+                    {% set i = ((i|length == 2)?'0':'00') + i %}
+                {% endif %}
+
+                {% if i < 128 %}
+                    {% set class = 1 %}
+                {% elseif i <192 %}
+                    {% set class = 2 %}
+                {% elseif i <224 %}
+                    {% set class = 3 %}
+                {% elseif i <240 %}
+                    {% set class = 4 %}
+                {% else %}
+                    {% set class = 5 %}
+                {% endif %}
+
+                {% if i in [0,10,127,169,192,198,203] %}
+                    <div class='mix category-{{ class }} special'>{{ i }}.x.x.x</div>
+                {% else %}
+                    <div class='mix category-{{ class }}'>{{ i }}.x.x.x</div>
+                {% endif %}
+
+            {% endfor %}
+        </div>
+        <div class="col-md-3">
+            <button class="filter" data-filter="all">Все</button>
+            <button class="filter" data-filter=".category-1">A</button>
+            <button class="filter" data-filter=".category-2">B</button>
+            <button class="filter active" data-filter=".category-3">C</button>
+            <button class="filter active" data-filter=".category-4">D</button>
+            <button class="filter active" data-filter=".category-5">E</button>
+            <p>Карта адресов IPv4.</p>
+
+            <p>В качестве реальных узлов сети Интернет следует рассматривать только IP адреса категорий A, B и C.
+                Причём даже среди них есть зарезервированые диапазоны (отмечены прозрачностью).</p>
+
+            <p>Класс D предназначен для многоадресной рассылки.</p>
+
+            <p>Класс E вроде как зарезервирован, но с появлением IPv6, видимо, уже никогда не будет использоваться.</p>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'blog/base.twig' %}
+
+{% block title %}{{ post.name }}{% endblock %}
+
+{% block datafield %}
+    {% if post %}
+        <div id="post">
+            <h2><a href="/{{ author.name }}/post/{{ post._id }}">{{ post.name }}</a></h2>
+            {{ post.content|raw }}
+            <hr>
+            <div id="time">{{ post.creationTime.date }}</div>
+        </div>
+    {% else %}
+        <h2>Нет поста с id {{ request_post }}</h2>
+    {% endif %}
+{% endblock %}

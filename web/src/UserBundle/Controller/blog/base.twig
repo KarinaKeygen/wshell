@@ -1,0 +1,25 @@
+{% extends 'base.twig' %}
+
+{% block title %}{{ author.name }}{% endblock %}
+
+{% block stylesheets %}
+    <link href="/css/wshell.css" type="text/css" rel="stylesheet"/>
+    <link href="/css/themes/default.css" type="text/css" rel="stylesheet"/>
+{% endblock %}
+
+{% block javascripts %}
+{% endblock %}
+
+{% block body %}
+    <header>
+        <a href="/settings">Настройки</a>
+    </header>
+
+    {% block discrip %}
+    {% endblock %}
+
+    <div id='datafield'>
+        {% block datafield %}
+        {% endblock %}
+    </div>
+{% endblock %}

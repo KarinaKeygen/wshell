@@ -1,0 +1,19 @@
+login:
+    path:     /login
+    defaults: { _controller: UserBundle:Security:login }
+
+oauth:
+    path:     /oauth
+    defaults: { _controller: UserBundle:Security:oauth }
+github_login:
+    path:     /oauth/github
+    defaults: { _controller: UserBundle:Security:githubLogin }
+vk_login:
+    path:     /oauth/vk
+    defaults: { _controller: UserBundle:Security:vkLogin }
+
+
+login_check:
+    path:     /login_check
+logout:
+    path: /logout

@@ -1,0 +1,34 @@
+{% extends 'WshellBundle::layout.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href='https://api.tiles.mapbox.com/mapbox.js/v2.2.2/mapbox.css' rel='stylesheet'/>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src='https://api.tiles.mapbox.com/mapbox.js/v2.2.2/mapbox.js'></script>
+    <script>
+        L.mapbox.accessToken = 'pk.eyJ1IjoicGlsb3QxMTQiLCJhIjoiY2llb2lsNjhyMDBhenRpbTBvZ3didnJzcyJ9.91lZn7DeDvW-lKE5OSk_-A'
+
+
+        var stamenLayer = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}.png',{});
+
+        // selector, map ID, set coordinate and size
+        // https://www.mapbox.com/developers/api/maps/#mapids
+        var map = L.mapbox.map('map', 'mapbox.streets').setView([55, 83], 11);
+        $('.leaflet-control-attribution').hide();
+    </script>
+{% endblock %}
+
+{% block to_main %}
+    <a href="/chapters">
+        <img src="/img/sh40.png">
+        <div class="bigtext">wShell</div>
+    </a>
+    <div class="bigtext"> &rarr;Карта</div>
+{% endblock %}
+
+{% block content %}
+    <div id="map"></div>
+{% endblock %}

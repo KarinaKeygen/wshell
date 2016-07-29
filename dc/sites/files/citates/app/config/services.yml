@@ -1,0 +1,4 @@
+services:
+   mongo:
+       class: AppBundle\Service\Mongo
+       arguments: [%mongo_url%]
