@@ -16,8 +16,8 @@ web интерфейс
 доступны по домену SITE_NAME.dev), корнем сайта будет директория SITE_NAME/web
 
 ### nodejs
-docker run -it --rm -v $(pwd):/usr/src/app dev_node bower install --allow-root -q -s
-docker run -it --rm -v $(pwd):/usr/src/app -e UID=$(id -u) dev_node chown -R $UID .
+docker run -it --rm -v $(pwd):/usr/src/app dc_node bower install --allow-root -q -s
+docker run -it --rm -v $(pwd):/usr/src/app -e UID=$(id -u) dc_node chown -R $UID .
 
 # add this to .bashrc to alias npm
 alias npm='docker run --rm -v $(pwd)/:/mnt/ -e UID=$(id -u) -e GID=$(id -g) zenoss/gulp npm'

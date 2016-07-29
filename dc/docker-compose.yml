@@ -61,6 +61,8 @@ services:
         networks:
               mynet:
                 ipv4_address: 172.24.0.104
+    node:
+        build: node
 networks:
   mynet:
     driver: bridge
