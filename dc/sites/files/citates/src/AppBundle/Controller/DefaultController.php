@@ -34,9 +34,19 @@ class DefaultController extends Controller
         $user = $user->getArrayCopy();
 
 
-        $votes = $user['votes']->getArrayCopy();
+        $votes = (isset($user['votes'])) ? $user['votes']->getArrayCopy():[];
 
         $userVotesCount = count($votes);
+        if ($userVotesCount == 0) {
+            $skip = rand(0, $citateCount-1);
+            $citate = $this->get('mongo')->citates->citate->findOne([], ['skip'=>$skip]);
+            if ($citate) {
+                $citate->getArrayCopy();
+            }
+            return $this->render('AppBundle:Default:index.html.twig', [
+              'citate' => $citate
+            ]);
+        }
         if ($citateCount == 0 || $userVotesCount/$citateCount == 1) {
             return $this->render('AppBundle:Default:index.html.twig', [
               'citate' => false
