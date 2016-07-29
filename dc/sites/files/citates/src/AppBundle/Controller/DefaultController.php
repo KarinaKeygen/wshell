@@ -98,8 +98,10 @@ class DefaultController extends Controller
     public function loginAction(Request $request)
     {
         $params = $request->query->all();
-        // check app_id+uid+secret_key
-        $hash = md5(5567436 . $params['uid'] . '0fSxNuGth2iiTiuKWfOU');
+        // check
+        $appId = $this->getParameter('app_id');
+        $secretKey = $this->getParameter('secret_key');
+        $hash = md5($appId . $params['uid'] . $secretKey);
         if ($params['hash'] == $hash) {
 
             $user = $this->get('mongo')->citates->user->findOne(['uid' => $params['uid']]);

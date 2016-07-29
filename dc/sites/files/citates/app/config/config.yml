@@ -38,6 +38,7 @@ twig:
     strict_variables: "%kernel.debug%"
     globals:
         ts: '@security.token_storage'
+        app_id: '%app_id%'
 
 # Doctrine Configuration
 doctrine:

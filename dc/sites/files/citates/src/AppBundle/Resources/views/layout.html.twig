@@ -53,7 +53,7 @@ body {
       {% if not is_granted('ROLE_USER') %}
           <div id="vk_auth"></div>
           <script type="text/javascript">
-              VK.init({apiId: 5567436});
+              VK.init({apiId: "{{app_id}}" });
               VK.Widgets.Auth("vk_auth", {redesign: 1, width: "200px", authUrl: '/login'});
           </script>
       {% endif %}

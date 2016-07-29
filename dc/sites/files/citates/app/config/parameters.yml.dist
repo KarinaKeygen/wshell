@@ -12,7 +12,5 @@ parameters:
     database_name: 1234
     database_user: 1234
     database_password: 1234
-    oauth.vk:
-            id: 8090a78af82436ec9019
-            secret: 47e05652460ac0334bdb0cf24fada4dc0484f5df
-            redirect: 'http://citates.dev/oauth/vk'
+    app_id: 5567993
+    secret_key: dRgTlF6MrMx1DiN8St3m
