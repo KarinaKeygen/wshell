@@ -1,12 +1,13 @@
 {
     "role": "master",
-    "path": "/home/pilot114/wshell/node",
+    "path": "/home/pilot114/sources/wshell/node",
     "votingExpire": "600",
     "wamp": {
-        "url": "ws://192.168.33.11:5554",
+        "url": "ws://172.24.0.102:5550/",
         "realm": "realm1",
         "topics": {
             "main": "wshell.execute.main",
+            "result": "wshell.execute.result",
 
             "all": "wshell.system.all",
             "master": "wshell.system.master",
@@ -14,5 +15,5 @@
         }
     },
     "czmqAddr": "tcp://127.0.0.1:5555",
-    "debug": false
+    "debug": true
 }

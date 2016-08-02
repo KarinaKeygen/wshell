@@ -2,8 +2,6 @@ body
 {
     font-family: Verdana, Arial, Helvetica, sans-serif;
     font-size: 12px;
-    /*background: url(/img/bg-texture.jpg) repeat center top fixed;*/
-    /*background-color: black;*/
 }
 
 h1, h2, h3 {
@@ -117,19 +115,16 @@ header
     padding:25px 25px 40px;
 }
 
-#chains_out {
-    
-}
 @media (min-width: 1200px) {
     .tab-pane>article {
-    -webkit-column-count:2;  
-    -moz-column-count:2;  
-    column-count:2; 
+    -webkit-column-count:2;
+    -moz-column-count:2;
+    column-count:2;
     }
     #service_list {
-        -webkit-column-count:2;  
-        -moz-column-count:2;  
-        column-count:2; 
+        -webkit-column-count:2;
+        -moz-column-count:2;
+        column-count:2;
     }
 }
 

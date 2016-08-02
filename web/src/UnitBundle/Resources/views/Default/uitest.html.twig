@@ -1,0 +1,183 @@
+{% extends 'WshellBundle::layout.html.twig' %}
+
+{% block title %}wShell IOlib{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="/vendor/bootstrap-toggle/css/bootstrap-toggle.min.css" type="text/css" rel="stylesheet">
+    <link href="/vendor/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src="/vendor/bootstrap-toggle/js/bootstrap-toggle.min.js"></script>
+    <script src="/vendor/moment/min/moment.min.js"></script>
+    <script src="/vendor/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#datetimepicker1').datetimepicker();
+        });
+    </script>
+{% endblock %}
+
+{% block to_main %}
+    <a href="/chapters">
+        <img src="/img/sh40.png">
+
+        <div class="bigtext">wShell</div>
+    </a>
+    <div class="bigtext"> &rarr;IOlib</div>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+		<p>wShell IOlib - набор элементов интерфейса ввода/вывода данных для юнитов (wshell.css)<br>
+			Требует boostrap 3.3.* и jquery 2.1.*. Набор элементов строится динамически по hookup.
+		</p>
+        <p>
+            TIPS: вероятно, любой параметр может быть загружен как файл, поэтому пока можно не париться
+            со специальным UI для файлов - будет опция "загрузить как файл".<br>
+            В концепте, смотреть на UI Wolfram, там решены многие вопросы универсальности ввода.
+        </p>
+        <h2>1. Input</h2>
+			<table class="table">
+			<tr>
+			    <th>Описание</th>
+			    <th>Код</th>
+			    <th>Пример</th>
+			</tr>
+			<tr>
+				<td>text field - для текстовых параметров</td>
+				<td class="text">
+                    {{ '<div class="form-group"><input type="text" class="form-control" placeholder="text"></div>'|e }}
+                </td>
+				<td>
+                    <div class="form-group"><input type="text" class="form-control" placeholder="text"></div>
+				</td>
+			</tr>
+			<tr>
+				<td>pattern field - дефолтный элемент для текстовых параметров с заданным elem.<br>
+                Выбирается, если не удалось найти более специализированный элемент</td>
+                <td>
+                    {{ '<div class="form-group"><input type="text" pattern="[A-Za-z]{3}" class="form-control" placeholder="XXX"></div>'|e }}
+				</td>
+                <td>
+                    <div class="form-group"><input type="text" pattern="[A-Za-z]{3}" class="form-control" placeholder="XXX"></div>
+				</td>
+			</tr>
+            <tr>
+                <td>
+                    Email
+                </td>
+                <td>
+                    {{ '<div class="form-group">
+                    <div class="input-group">
+                      <div class="input-group-addon">@</div>
+                      <input type="text" class="form-control" placeholder="Email">
+                    </div>
+                    </div>'|e }}
+                </td>
+                <td>
+                    <div class="form-group">
+                    <div class="input-group">
+                      <div class="input-group-addon">@</div>
+                      <input type="text" class="form-control" placeholder="Email">
+                    </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Select - для выбора из набора (TODO: тут может быть достаточно сложная логика)
+                </td>
+                <td>
+                    -
+                </td>
+                <td>
+                    -
+                </td>
+            </tr>
+            <tr>
+				<td>Boolean. См. <a href="http://www.bootstraptoggle.com/#demos">bootstraptoggle</a> для кастомизации</td>
+				<td>
+                    {{'<div class="form-group"><input type="checkbox" checked data-toggle="toggle" data-onstyle="default"
+                    data-on="Flag ON" data-off="Flag OFF"></div>'|e }}
+                </td>
+				<td>
+                    <div class="form-group">
+                    <input type="checkbox" checked data-toggle="toggle" data-onstyle="default"
+                    data-on="Flag ON" data-off="Flag OFF">
+                    </div>
+                </td>
+			</tr>
+
+			<tr>
+				<td>Color</td>
+				<td>http://casesandberg.github.io/react-color/</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>Time</td>
+				<td></td>
+				<td>
+                    <div class="form-group">
+                        <div class='input-group date' id='datetimepicker1'>
+                            <input type='text' class="form-control" />
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </td>
+			</tr>
+
+			<tr>
+				<td>Big text - textarea</td>
+				<td>
+                    {{ '<div class="form-group">
+                        <textarea class="form-control" rows="8"></textarea>
+                    </div>'|e }}
+                </td>
+				<td>
+                    <div class="form-group">
+                        <textarea class="form-control" rows="8"></textarea>
+                    </div>
+                </td>
+			</tr>
+
+            <tr>
+                <td>Number</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Range</td>
+                <td></td>
+                <td></td>
+            </tr>
+
+			<tr>
+				<td>Mode - радиокнопки для выбора режима. Выбор режима влияет на то, какие поля ввода отображаются, а какие - нет</td>
+				<td></td>
+				<td>
+                    <div class="btn-group" data-toggle="buttons">
+                      <label class="btn btn-default active">
+                        <input type="radio" name="options" id="option1" autocomplete="off" checked> Seal
+                      </label>
+                      <label class="btn btn-default">
+                        <input type="radio" name="options" id="option2" autocomplete="off"> Unseal
+                      </label>
+                    </div>
+                </td>
+			</tr>
+            <tr>
+                <td>Add - кнопка дублирования поля (для массива данных)</td>
+                <td></td>
+                <td></td>
+            </tr>
+			</table>
+
+        <h2>2. Output</h2>
+    </div>
+{% endblock %}

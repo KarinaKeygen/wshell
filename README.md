@@ -44,7 +44,7 @@ docker-compose scale - маштабировать сервисы
 ### mongo backup
 in mongo container:
 
-cd /data/db/backup
+cd /data/db
 mongodump --db wshell
 
 ## docs

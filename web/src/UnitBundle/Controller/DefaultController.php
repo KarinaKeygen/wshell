@@ -16,6 +16,12 @@ use PhpToolbox\Utils\Formatter as F;
 
 class DefaultController extends Controller
 {
+    public function uiTestAction()
+    {
+        return $this->render('UnitBundle:Default:uitest.html.twig', [
+        ]);
+    }
+
     public function chainAction()
     {
       $units = $this->get('mongo')->wshell->units->find()->toArray();

@@ -1,4 +1,7 @@
 chain:
+    path:     /uitest
+    defaults: { _controller: UnitBundle:Default:uiTest }
+chain:
     path:     /chain
     defaults: { _controller: UnitBundle:Default:chain }
 single:

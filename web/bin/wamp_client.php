@@ -6,7 +6,7 @@ use Thruway\ClientSession;
 use UnitBundle\Service\WampClient;
 use Thruway\Transport\PawlTransportProvider;
 
-$client = new WampClient("realm1", "ws://172.25.0.101:5554/");
+$client = new WampClient("realm1", "ws://172.24.0.102:5550/");
 
 $client->on('open', function (ClientSession $session) use ($client) {
 

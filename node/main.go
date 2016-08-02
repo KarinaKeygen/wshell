@@ -11,7 +11,7 @@ func main() {
 
 	// инициализируем ядро программы, загружаем конфигурации
 	var core node.NodeCore
-	core.Init("config_dev.json")
+	core.Init("config.json")
 	log.Printf("Node role: %s", core.Config.Role)
 	log.Println(core.Config)
 

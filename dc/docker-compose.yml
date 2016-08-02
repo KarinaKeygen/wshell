@@ -6,7 +6,6 @@ services:
         volumes:
             - ./sites/files:/usr/share/nginx
             - ../web:/usr/share/nginx/wshell
-        tty: true # WHAT?
         entrypoint: /usr/share/nginx/entrypoint.sh
     nginx:
         build: nginx
@@ -25,6 +24,7 @@ services:
         build: php-fpm
         ports:
             - "9000:9000"
+            - "5550-5560:5550-5560"
         volumes_from:
             - sites
         links:
