@@ -4,20 +4,36 @@
 
 {% block stylesheets %}
     {{ parent() }}
+    <link href="/css/obsidian.css" type="text/css" rel="stylesheet">
     <link href="/vendor/bootstrap-toggle/css/bootstrap-toggle.min.css" type="text/css" rel="stylesheet">
     <link href="/vendor/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" type="text/css" rel="stylesheet">
+    <link href="/vendor/ionrangeslider/css/ion.rangeSlider.css" type="text/css" rel="stylesheet">
+    <link href="/vendor/ionrangeslider/css/ion.rangeSlider.skinFlat.css" type="text/css" rel="stylesheet">
+
+    <style media="screen">
+        .my_td {
+            min-width:  250px;
+        }
+    </style>
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
-
     <script src="/vendor/bootstrap-toggle/js/bootstrap-toggle.min.js"></script>
     <script src="/vendor/moment/min/moment.min.js"></script>
     <script src="/vendor/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
-    <script type="text/javascript">
-        $(function () {
-            $('#datetimepicker1').datetimepicker();
-        });
+    <script src="/vendor/google-code-prettify/bin/prettify.min.js"></script>
+    <script src="/vendor/ionrangeslider/js/ion.rangeSlider.min.js"></script>
+    <script>
+
+    $(function () {
+        // подсветка кода
+        prettyPrint();
+        // для плагинов
+        $('.datetimepicker').datetimepicker();
+        $('.slider').ionRangeSlider({type: 'single'});
+    });
+
     </script>
 {% endblock %}
 
@@ -27,7 +43,7 @@
 
         <div class="bigtext">wShell</div>
     </a>
-    <div class="bigtext"> &rarr;IOlib</div>
+    <div class="bigtext">&rarr;<a href="/units/chain">Юниты</a>&rarr;IOlib</div>
 {% endblock %}
 
 {% block content %}
@@ -40,43 +56,36 @@
             со специальным UI для файлов - будет опция "загрузить как файл".<br>
             В концепте, смотреть на UI Wolfram, там решены многие вопросы универсальности ввода.
         </p>
-        <h2>1. Input</h2>
+        <h2>1. "Natural" input</h2>
 			<table class="table">
 			<tr>
+			    <th>Название</th>
 			    <th>Описание</th>
-			    <th>Код</th>
+			    <th>elem</th>
 			    <th>Пример</th>
 			</tr>
 			<tr>
-				<td>text field - для текстовых параметров</td>
-				<td class="text">
-                    {{ '<div class="form-group"><input type="text" class="form-control" placeholder="text"></div>'|e }}
+				<td>text</td>
+				<td>Поле для ввода текстового аргумента.
+                Выбирается, если не задано никаких дополнительных параметров или
+                если не удалось найти более специализированный элемент.
                 </td>
-				<td>
-                    <div class="form-group"><input type="text" class="form-control" placeholder="text"></div>
-				</td>
-			</tr>
-			<tr>
-				<td>pattern field - дефолтный элемент для текстовых параметров с заданным elem.<br>
-                Выбирается, если не удалось найти более специализированный элемент</td>
                 <td>
-                    {{ '<div class="form-group"><input type="text" pattern="[A-Za-z]{3}" class="form-control" placeholder="XXX"></div>'|e }}
+                    -
 				</td>
-                <td>
+                <td class="my_td">
                     <div class="form-group"><input type="text" pattern="[A-Za-z]{3}" class="form-control" placeholder="XXX"></div>
 				</td>
 			</tr>
             <tr>
                 <td>
-                    Email
+                    email
                 </td>
                 <td>
-                    {{ '<div class="form-group">
-                    <div class="input-group">
-                      <div class="input-group-addon">@</div>
-                      <input type="text" class="form-control" placeholder="Email">
-                    </div>
-                    </div>'|e }}
+                    -
+                </td>
+                <td>
+                    #^.+\@.+\..+$#
                 </td>
                 <td>
                     <div class="form-group">
@@ -89,7 +98,10 @@
             </tr>
             <tr>
                 <td>
-                    Select - для выбора из набора (TODO: тут может быть достаточно сложная логика)
+                    select
+                </td>
+                <td>
+                    Для массива (TODO: на основе размера)
                 </td>
                 <td>
                     -
@@ -99,31 +111,54 @@
                 </td>
             </tr>
             <tr>
-				<td>Boolean. См. <a href="http://www.bootstraptoggle.com/#demos">bootstraptoggle</a> для кастомизации</td>
+                <td>Add</td>
+                <td>Кнопка дублирования поля (для массива данных)</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+				<td>boolean</td>
+                <td>
+                    См. <a href="http://www.bootstraptoggle.com/#demos">bootstraptoggle</a> для кастомизации
+				</td>
 				<td>
-                    {{'<div class="form-group"><input type="checkbox" checked data-toggle="toggle" data-onstyle="default"
-                    data-on="Flag ON" data-off="Flag OFF"></div>'|e }}
+                    -
                 </td>
 				<td>
                     <div class="form-group">
                     <input type="checkbox" checked data-toggle="toggle" data-onstyle="default"
-                    data-on="Flag ON" data-off="Flag OFF">
+                    data-on="Flag OFF" data-off="Flag ON">
                     </div>
                 </td>
 			</tr>
 
 			<tr>
-				<td>Color</td>
-				<td>http://casesandberg.github.io/react-color/</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td>Time</td>
-				<td></td>
+				<td>color</td>
+				<td>Выбор цвета</td>
+				<td>
+                    #^\#[0-9]{6}$#
+                </td>
 				<td>
                     <div class="form-group">
-                        <div class='input-group date' id='datetimepicker1'>
-                            <input type='text' class="form-control" />
+                        <div class="input-group">
+                        <span class="input-group-addon">
+                            <span>Color</span>
+                        </span>
+                        <input type="color" class="form-control"/>
+                        </div>
+                    </div>
+                </td>
+			</tr>
+			<tr>
+				<td>time</td>
+				<td>Выбор метки времени (с точностью до минуты)</td>
+				<td>
+                    #^[0-9]{2}\/[0-9]{2}\/\-?[0-9]{4} [0-9]{2}:[0-9]{2} (AM|PM)$#
+                </td>
+				<td>
+                    <div class="form-group">
+                        <div class='input-group date datetimepicker'>
+                            <input type='text' class="form-control" placeholder="time"/>
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </span>
@@ -133,11 +168,10 @@
 			</tr>
 
 			<tr>
-				<td>Big text - textarea</td>
+				<td>big_text</td>
+				<td>Для больших текстов</td>
 				<td>
-                    {{ '<div class="form-group">
-                        <textarea class="form-control" rows="8"></textarea>
-                    </div>'|e }}
+                    #^(.*)$#
                 </td>
 				<td>
                     <div class="form-group">
@@ -146,38 +180,45 @@
                 </td>
 			</tr>
 
-            <tr>
-                <td>Number</td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>Range</td>
-                <td></td>
-                <td></td>
-            </tr>
-
 			<tr>
-				<td>Mode - радиокнопки для выбора режима. Выбор режима влияет на то, какие поля ввода отображаются, а какие - нет</td>
-				<td></td>
+				<td>mode</td>
+                <td> Радиокнопки для выбора режима. Выбор режима влияет на то, какие поля ввода отображаются, а какие - нет</td>
+                <td>
+                    -
+                </td>
 				<td>
                     <div class="btn-group" data-toggle="buttons">
                       <label class="btn btn-default active">
-                        <input type="radio" name="options" id="option1" autocomplete="off" checked> Seal
+                        <input type="radio" name="options" id="option1" autocomplete="off" checked> Encode
                       </label>
                       <label class="btn btn-default">
-                        <input type="radio" name="options" id="option2" autocomplete="off"> Unseal
+                        <input type="radio" name="options" id="option2" autocomplete="off"> Decode
                       </label>
                     </div>
                 </td>
 			</tr>
-            <tr>
-                <td>Add - кнопка дублирования поля (для массива данных)</td>
-                <td></td>
-                <td></td>
-            </tr>
 			</table>
 
-        <h2>2. Output</h2>
+        <h2>2. Special input - не может быть определен по шаблону данных</h2>
+        <table class="table">
+        <tr>
+            <th>Название</th>
+            <th>Описание</th>
+            <th>Пример</th>
+        </tr>
+        <tr>
+            <td>range</td>
+            <td>
+                Уточнённый вариант для ввода цифр<br>
+                Cм <a href="http://ionden.com/a/plugins/ion.rangeSlider/demo.html">ion.rangeSlider</a> для кастомизации
+            </td>
+            <td class="my_td">
+                <div class="form-group">
+                <input type="text" class="slider" name="range" value="50" min="0" max="100" />
+                </div>
+            </td>
+        </tr>
+        </table>
+
     </div>
 {% endblock %}

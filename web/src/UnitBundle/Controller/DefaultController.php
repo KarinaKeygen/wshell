@@ -13,6 +13,7 @@ use Parsedown;
 // temp
 use PhpToolbox\Storages\Mongo;
 use PhpToolbox\Utils\Formatter as F;
+use UnitBundle\Tool\UIMapper;
 
 class DefaultController extends Controller
 {
@@ -35,10 +36,16 @@ class DefaultController extends Controller
     {
         $unit = $this->get('mongo')->wshell->units->findOne(['name' => $name]);
 
-        $parsedown    = new Parsedown();
+        $parsedown  = new Parsedown();
         $unit->info = $parsedown->text($unit->info);
         // shutdown
         $shutdown = ($unit->type == 0) ? true : false;
+
+        // TODO: move to create unit
+        $hookup = $unit->getHookupAsArray();
+        $uim = new UIMapper($hookup);
+        $unit->view = $uim->getView();
+        // FINISH TODO
 
         return $this->render('UnitBundle:Default:single.html.twig', [
           'shutdown' => $shutdown,

@@ -1,4 +1,4 @@
-chain:
+uitest:
     path:     /uitest
     defaults: { _controller: UnitBundle:Default:uiTest }
 chain:

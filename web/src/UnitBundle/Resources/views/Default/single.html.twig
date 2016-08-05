@@ -5,28 +5,58 @@
 {% block stylesheets %}
     {{ parent() }}
     <link href="/css/obsidian.css" type="text/css" rel="stylesheet">
+    <link href="/vendor/bootstrap-toggle/css/bootstrap-toggle.min.css" type="text/css" rel="stylesheet">
+    <link href="/vendor/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" type="text/css" rel="stylesheet">
+    <link href="/vendor/ionrangeslider/css/ion.rangeSlider.css" type="text/css" rel="stylesheet">
+    <link href="/vendor/ionrangeslider/css/ion.rangeSlider.skinFlat.css" type="text/css" rel="stylesheet">
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
+    <script src="/vendor/bootstrap-toggle/js/bootstrap-toggle.min.js"></script>
+    <script src="/vendor/moment/min/moment.min.js"></script>
+    <script src="/vendor/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
     <script src="/vendor/google-code-prettify/bin/prettify.min.js"></script>
+    <script src="/vendor/ionrangeslider/js/ion.rangeSlider.min.js"></script>
     <script>
 
-        // переключение вкладок
-        $(".input_toogle").click(function (event) {
-            $('#input_tab1').toggle();
-            $('#input_tab2').toggle();
-        });
-
-        // подсветка кода
-        $(document).ready(function () {
+        $(function () {
+            // подсветка кода
             prettyPrint();
+            // для плагинов
+            $('.datetimepicker').datetimepicker();
+            $('.slider').ionRangeSlider({type: 'single'});
+
+            // first hidden (for correct display hidden-child elements)
+            var el = $(".mode_toogle").first().children()[0];
+            var newMode = 'mode_' + $(el).attr('name');
+            $('.input').each(function(i, val){
+                var cur = $(val);
+                if (cur.hasClass(newMode)) {
+                    cur.removeClass('hidden');
+                } else {
+                    cur.addClass('hidden');
+                }
+            });
+
+            // переключение режимов
+            $(".mode_toogle").click(function (e) {
+                var el = $(e.target).children()[0];
+                var newMode = 'mode_' + $(el).attr('name');
+
+                $('.input').each(function(i, val){
+                    var cur = $(val);
+                    if (cur.hasClass(newMode)) {
+                        cur.removeClass('hidden');
+                    } else {
+                        cur.addClass('hidden');
+                    }
+                });
+            });
         });
 
     </script>
     <script src="/js/gui/{{ unit.guiMode }}.js"></script>
-    <!-- MAYBE TODO -->
-    <!-- <script src="/js/units/ unit.name .js"></script> -->
 {% endblock %}
 
 {% block to_main %}

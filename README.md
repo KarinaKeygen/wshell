@@ -16,6 +16,7 @@ web интерфейс
 доступны по домену SITE_NAME.dev), корнем сайта будет директория SITE_NAME/web
 
 ### nodejs
+docker run -it --rm -v $(pwd):/usr/src/app dc_node node
 docker run -it --rm -v $(pwd):/usr/src/app dc_node bower install --allow-root -q -s
 docker run -it --rm -v $(pwd):/usr/src/app -e UID=$(id -u) dc_node chown -R $UID .
 
