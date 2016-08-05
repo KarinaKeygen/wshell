@@ -16,37 +16,37 @@ web интерфейс
 доступны по домену SITE_NAME.dev), корнем сайта будет директория SITE_NAME/web
 
 ### nodejs
-docker run -it --rm -v $(pwd):/usr/src/app dc_node node
-docker run -it --rm -v $(pwd):/usr/src/app dc_node bower install --allow-root -q -s
-docker run -it --rm -v $(pwd):/usr/src/app -e UID=$(id -u) dc_node chown -R $UID .
 
-# add this to .bashrc to alias npm
-alias npm='docker run --rm -v $(pwd)/:/mnt/ -e UID=$(id -u) -e GID=$(id -g) zenoss/gulp npm'
-# and use it like a regular npm command. eg: npm install
-
-# add this to .bashrc to alias gulp
-alias gulp='docker run --rm -v $(pwd)/:/mnt/ -e UID=$(id -u) -e GID=$(id -g) zenoss/gulp gulp'
-# and use it like a regular gulp command. eg: gulp release
+    docker run -it --rm -v $(pwd):/usr/src/app dc_node node
+    docker run -it --rm -v $(pwd):/usr/src/app dc_node bower install --allow-root -q -s
+    docker run -it --rm -v $(pwd):/usr/src/app -e UID=$(id -u) dc_node chown -R $UID .
+    // add this to .bashrc to alias npm
+    // and use it like a regular npm command. eg: npm install
+    alias npm='docker run --rm -v $(pwd)/:/mnt/ -e UID=$(id -u) -e GID=$(id -g) dc_node npm'
+    // add this to .bashrc to alias gulp
+    // and use it like a regular gulp command. eg: gulp release
+    alias gulp='docker run --rm -v $(pwd)/:/mnt/ -e UID=$(id -u) -e GID=$(id -g) dc_node gulp'
 
 ### docker-compose
-docker-compose ps - список запущенных контейнеров
-docker-compose port
-docker-compose logs
 
-docker-compose build - сборка
-docker-compose run - параметры для запуска чего-нибудь внутри
-docker-compose up - запуск интерактивно
-docker-compose start - то же самое, но сразу в detached mode
-docker-compose restart
-docker-compose stop
-docker-compose kill - форсированная остановка
-docker-compose scale - маштабировать сервисы
+    docker-compose ps - список запущенных контейнеров
+    docker-compose port
+    docker-compose logs
+
+    docker-compose build - сборка
+    docker-compose run - параметры для запуска чего-нибудь внутри
+    docker-compose up - запуск интерактивно
+    docker-compose start - то же самое, но сразу в detached mode
+    docker-compose restart
+    docker-compose stop
+    docker-compose kill - форсированная остановка
+    docker-compose scale - маштабировать сервисы
 
 ### mongo backup
 in mongo container:
 
-cd /data/db
-mongodump --db wshell
+    cd /data/db
+    mongodump --db wshell
 
 ## docs
 Различная сопроводительная документация
